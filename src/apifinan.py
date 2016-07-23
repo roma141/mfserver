@@ -100,7 +100,7 @@ def ModificaMovF(email, clave, datos):
     bd.cierra()
     return None
 
-def AgregaClienteF(email, clave, datos):
+def AgregaClienteF(email, clave, lang, datos):
     bd = DB(nombrebd="myfinan")
     usuario = loginf(email, clave, bd)
     if usuario:
