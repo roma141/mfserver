@@ -136,13 +136,13 @@ def ModificaMov(datos, bd):
         where ID=%s
         """ % (datos["IDcuentamas"], datos["IDcuentamenos"], datos["fecha"], datos["concepto"], datos["valor"], datos["IDmov"]))
 
-def AgregaCliente(email, clave, datos, bd):
+def AgregaCliente(email, clave, lang, datos, bd):
     bd.Ejecuta("insert into clientes (Nombre) values ('%s')" % datos["nombre"])
     IDcliente = bd.UltimoID()
     bd.Ejecuta("insert into usuarios (IDcliente,nombre,nombreCorto,email,clave) values (%s,'%s','%s','%s','%s')"
                 % (IDcliente, datos["nombre"], datos["nombre"][:2], email, clave))
 
-    bd.Ejecuta("create temporary table x1 select * from cuentasnuevas")
+    bd.Ejecuta("create temporary table x1 SELECT IDcliente,Nombre,Limite,esGasto,esContinua,Orden FROM cuentasnuevas WHERE Lang='"+ lang +"'")
     bd.Ejecuta("update x1 set IDcliente=%s" % IDcliente)
     bd.Ejecuta("insert into cuentas (IDcliente,Nombre,Limite,esGasto,esContinua,Orden) select IDcliente,Nombre,Limite,esGasto,esContinua,Orden from x1")
     bd.Ejecuta("drop table x1")

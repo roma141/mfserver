@@ -113,7 +113,7 @@ def AgregaClienteF(email, clave, lang, datos):
             return "existe"
         else:
             if datos["d1"]=="myfinan@gtienda.com" and datos["d2"]=="gtienda":
-                resp = AgregaCliente(email, clave, datos, bd)
+                resp = AgregaCliente(email, clave, lang, datos, bd)
                 bd.cierra()
                 return resp
         
