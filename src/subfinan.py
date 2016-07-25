@@ -71,7 +71,7 @@ def Cuentas(desde, hasta, usuario, bd):
         bd.Ejecuta("update xcuentas set entradas=%s, salidas=%s where ID=%s" % (entradas, salidas, row["ID"]))
                                     
     bd.Ejecuta("update xcuentas set saldo=saldoant+entradas-salidas")
-    bd.Ejecuta("update xcuentas set saldoant=0, saldo=0 where escontinua=0")
+    bd.Ejecuta("update xcuentas set saldoant=0 where escontinua=0")
     rows = bd.Ejecuta("select ID,nombre, format(saldoant,0) as saldoant, format(entradas,0) as entradas, format(salidas,0) as salidas, format(saldo,0) as saldo from xcuentas")
     bd.Ejecuta("drop table xcuentas")
     return rows
